@@ -4,6 +4,7 @@ import { urlencoded, json } from 'express';
 import { ValidationPipe } from '@nestjs/common';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
+import { logger } from './utils/logger';
 //import { logger } from './utils/logger/index';
 
 async function bootstrap() {
@@ -34,7 +35,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   const port = '3000';
   await app.listen(port);
-  console.log(
+  logger.info(
     `CHAT IS RUNNING ON PORT ${port}: ${await app.getUrl()}`,
   );
 }
