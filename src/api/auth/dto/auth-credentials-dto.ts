@@ -12,9 +12,6 @@ import {
     @MaxLength(50)
     phoneNumber: string;
   
-    @IsNotEmpty()
-    imei: string;
-  
     @IsString()
     @IsNotEmpty()
     @MinLength(4)

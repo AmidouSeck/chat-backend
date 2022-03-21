@@ -61,50 +61,12 @@ export class AuthService {
           HttpStatus.NOT_FOUND,
         );
       }
-      const passwordValidation = new Promise((resolve) =>
-        resolve(validatePassword(loginData.pinCode, user.pinCode)),
-      );
+      const passwordValidation = this.userModel
+      .findOne({ phoneNumber: loginData.phoneNumber, pinCode: loginData.pinCode })
       const isMatch = await passwordValidation;
       if (!isMatch) {
         throw new HttpException('Mot de passe invalide', HttpStatus.FORBIDDEN);
       }
-      // if (user.userStatus === UserStatus.NotActive) {
-      //   throw new HttpException(
-      //     "Ce compte n'est pas activé",
-      //     HttpStatus.FORBIDDEN,
-      //   );
-      // }
-      // let twoFactorAuthVerified: Promise<any> = new Promise((resolve) =>
-      //   resolve(this.deviceImeiIsInArray(user.userDevices, loginData.imei)),
-      // );
-      // let doTwofactorAuth = await twoFactorAuthVerified;
-      // if (user.userStatus === UserStatus.WAITING_VALIDATION) {
-      //   doTwofactorAuth = true;
-      // }
-      // if (doTwofactorAuth) {
-      //   const deviceInArray = await this.deviceInArray(
-      //     user.userDevices,
-      //     loginData.imei,
-      //   );
-      //   if (!deviceInArray) {
-      //     await user.userDevices.push({
-      //       imei: loginData.imei,
-      //       deviceIsInitialized: false,
-      //     });
-      //   }
-
-      //   user.save();
-      //   await this.sendVerificationSmsCode(user.phoneNumber);
-      //   return { user, token: null, doTwofactorAuth };
-      // } else {
-      //   const token = this.generateAuthToken(user._id, user.role);
-      //   if (user.tokens.length > 4) {
-      //     user.tokens.shift();
-      //   }
-      //   user.tokens = user.tokens.concat({ token });
-      //   await user.save();
-      //   return { user, token, doTwofactorAuth };
-      // }
       return  {user};
     } catch (error) {
       throw new HttpException(error.message, error.status);

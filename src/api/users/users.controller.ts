@@ -1,7 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus, Res } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { logger } from 'src/utils/logger';
+import { handleError } from 'src/utils/error';
 
 @Controller('users')
 export class UsersController {
@@ -13,8 +15,20 @@ export class UsersController {
   }
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  async findAll(
+    @Res() res,
+  ) {
+    //return this.usersService.findAll();
+    try {
+      logger.info('------INIT GETUSERS-----');
+      const users = this.usersService.findAll();
+      return users;
+    } catch (error) {
+      handleError(error);
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+        message: error.message,
+      });
+    }
   }
 
   @Get(':id')

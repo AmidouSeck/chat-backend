@@ -16,10 +16,6 @@ export class CreateUserDto {
   phoneNumber: string;
 
   @IsNotEmpty()
-  dateOfBirth: string;
-
-
-  @IsNotEmpty()
   @MinLength(4)
   readonly pinCode: string;
 }
