@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './interfaces/user.interface';
 import { Model } from 'mongoose';
+import { logger } from 'src/utils/logger';
 
 @Injectable()
 export class UsersService {
@@ -20,7 +21,7 @@ export class UsersService {
 
   async findAll() {
     try {
-      
+      logger.info('SERVICE');
       const users = await this.userModel.find();
       return users;
     } catch (error) {

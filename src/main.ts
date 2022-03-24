@@ -33,7 +33,7 @@ async function bootstrap() {
   app.use(urlencoded({ limit: '100mb', extended: true }));
   app.use(helmet.frameguard({ action: 'SAMEORIGIN' }));
   app.setGlobalPrefix('api');
-  const port = '3000';
+  const port = '3010';
   await app.listen(port);
   logger.info(
     `CHAT IS RUNNING ON PORT ${port}: ${await app.getUrl()}`,

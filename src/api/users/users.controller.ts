@@ -21,8 +21,25 @@ export class UsersController {
     //return this.usersService.findAll();
     try {
       logger.info('------INIT GETUSERS-----');
-      const users = this.usersService.findAll();
-      return users;
+      var allUsers = [];
+      var tab = [];
+      const users = await this.usersService.findAll();
+       allUsers = users;
+      for (let i = 0; i < allUsers.length; i++) {
+        let userObject = {
+          firstname: allUsers[i].firstname,
+          lastname: allUsers[i].lastname,
+          phoneNumber: allUsers[i].phoneNumber,
+          userFiles: "/Users/amidouseck/Desktop/Dev_mobile/"+allUsers[i].userFiles.profilePhoto,
+          _id: allUsers[i]._id,
+        }
+        tab.push(userObject);
+      }
+      logger.info('-----Successfully get user-----');
+      return res.status(HttpStatus.CREATED).json({
+        message: 'Successfully get user',
+        user: tab,
+      });
     } catch (error) {
       handleError(error);
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({

@@ -15,6 +15,6 @@ export class UploadHelper {
   };
 
   static uploadDirectory = (req, file, cb) => {
-    cb(null, '/opt/chatImages');
+    cb(null, '/Users/amidouseck/Desktop/Dev_mobile');
   };
 }

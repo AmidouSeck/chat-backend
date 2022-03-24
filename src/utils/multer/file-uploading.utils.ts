@@ -27,12 +27,12 @@ export class FileUploading {
       file.mimetype.indexOf('jpeg') > -1 ||
       file.mimetype.indexOf('png') > -1
     ) {
-      cb(null, '/opt/chatImages');
+      cb(null, '/Users/amidouseck/Desktop/Dev_mobile');
     } else if (
       file.mimetype.indexOf('pdf') > -1 ||
       file.mimetype.indexOf('doc') > -1
     ) {
-      cb(null, '/opt/chatImages');
+      cb(null, '/Users/amidouseck/Desktop/Dev_mobile');
     }
   }
 }
