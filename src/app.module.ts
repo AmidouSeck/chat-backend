@@ -1,3 +1,4 @@
+import { ChatModule } from './api/chat/chat.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -7,6 +8,7 @@ import { MomentModule } from '@ccmos/nestjs-moment';
 import { AuthModule } from './api/auth/auth.module';
 import { UsersModule } from './api/users/users.module';
 import { UserSchema } from './api/users/user.model';
+import { ChatSchema } from './api/chat/chat.model';
 
 @Module({
   imports: [MongooseModule.forRoot('mongodb://localhost/chat'),
@@ -21,24 +23,14 @@ import { UserSchema } from './api/users/user.model';
       name: 'User',
       schema: UserSchema,
     },
+    {
+      name: 'Chat',
+      schema: ChatSchema,
+    },
   ]),
-
-  // MongooseModule.forRootAsync({
-  //   imports: [ConfigModule],
-  //   useFactory: async (configService: ConfigService) => ({
-  //     uri: configService.get<string>('db.uri'),
-  //     user: process.env.MONGO_USER,
-  //     pass: process.env.MONGO_PASS,
-  //     dbName: process.env.MONGO_NAME,
-  //     useNewUrlParser: true,
-  //     useFindAndModify: false,
-  //     useUnifiedTopology: true,
-  //     useCreateIndex: true,
-  //   }),
-  //   inject: [ConfigService],
-  // }),
   UsersModule,
   AuthModule,
+  ChatModule
 ],
   controllers: [AppController],
   providers: [AppService],
