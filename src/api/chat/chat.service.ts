@@ -41,7 +41,7 @@ export class ChatService {
         } else {
           newMsg.messageContent = userData.messageContent;
         }
-          newMsg.date = moment().format("DD-MM-YYYY");
+          newMsg.date = moment().toDate().toISOString();
           newMsg.time = moment().format("hh:mm");
         await newMsg.save();
         logger.info('----- CHAT.SERVICE USER MSG SAVED SUCCESSFULLY -----');

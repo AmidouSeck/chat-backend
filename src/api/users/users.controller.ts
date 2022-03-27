@@ -32,6 +32,7 @@ export class UsersController {
           phoneNumber: allUsers[i].phoneNumber,
           userFiles: "/Users/amidouseck/Desktop/Dev_mobile/"+allUsers[i].userFiles.profilePhoto,
           _id: allUsers[i]._id,
+          created_at: allUsers[i].created_at,
         }
         tab.push(userObject);
       }
