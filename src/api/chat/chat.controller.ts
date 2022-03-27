@@ -75,14 +75,14 @@ export class ChatController {
     @Param('user2') user2: string,
   ) {
     try {
-      logger.info(`chat.controller`);
+      logger.info(`chat.controller GET MSG`);
       const userChatResponse = await this.chatService.getMessage(
         user1,
         user2
       );
-      logger.info(`chat.controller ${user1}----SUCCESS`);
+      logger.info(`chat.controller ${user1} GET MSG----SUCCESS`);
       return res.status(HttpStatus.CREATED).json({
-        response: userChatResponse,
+        message: userChatResponse,
       });
     } catch (error) {
       handleError(error);

@@ -54,7 +54,7 @@ export class ChatService {
 
     async getMessage(user1: string, user2: string) {
       try {
-        logger.info('----- CHAT.SERVICE STARTED -----');
+        logger.info('----- CHAT.SERVICE FOR GET MSG STARTED -----');
         const chats = await this.chatModel.find({
           $or: [
            {user1: new mongoose.Types.ObjectId(user1), user2: new mongoose.Types.ObjectId(user2)},
@@ -62,7 +62,7 @@ export class ChatService {
           ]
         });
 
-        logger.info('----- CHAT.SERVICE USER MSG SAVED SUCCESSFULLY -----');
+        logger.info('----- CHAT.SERVICE USER MSG RETURNED SUCCESSFULLY -----');
         return chats;
       } catch (error) {
         throw new HttpException(error.message, error.status);
