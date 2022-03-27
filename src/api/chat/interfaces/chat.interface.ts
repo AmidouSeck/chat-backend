@@ -6,6 +6,8 @@ export interface Chat extends Document {
   sender: any;
   messageContent: string;
 //   messageType: string;
+  date: string;
+  time: string;
   created_at: Date;
   updated_at: Date;
 }

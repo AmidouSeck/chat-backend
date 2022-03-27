@@ -67,6 +67,29 @@ export class ChatController {
     }
   }
 
+
+  @Get('/getmessage/:user1/:user2')
+  async getMessage(
+    @Res() res: Response,
+    @Param('user1') user1: string,
+    @Param('user2') user2: string,
+  ) {
+    try {
+      logger.info(`chat.controller`);
+      const userChatResponse = await this.chatService.getMessage(
+        user1,
+        user2
+      );
+      logger.info(`chat.controller ${user1}----SUCCESS`);
+      return res.status(HttpStatus.CREATED).json({
+        response: userChatResponse,
+      });
+    } catch (error) {
+      handleError(error);
+      return res.status(error.status).json({ message: error.message });
+    }
+  }
+
   @Get()
   findAll() {
     return this.chatService.findAll();

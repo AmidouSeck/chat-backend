@@ -7,6 +7,7 @@ import { Chat } from './interfaces/chat.interface';
 import { User } from '../users/interfaces/user.interface';
 import mongoose from 'mongoose';
 import { logger } from 'src/utils/logger';
+import * as moment from 'moment'
 
 @Injectable()
 export class ChatService {
@@ -40,7 +41,8 @@ export class ChatService {
         } else {
           newMsg.messageContent = userData.messageContent;
         }
-
+          newMsg.date = moment().format("DD-MM-YYYY");
+          newMsg.time = moment().format("hh:mm");
         await newMsg.save();
         logger.info('----- CHAT.SERVICE USER MSG SAVED SUCCESSFULLY -----');
         return newMsg.sender;
@@ -50,31 +52,18 @@ export class ChatService {
     }
 
 
-    async getMessage(userData: CreateChatDto, userFiles: any) {
+    async getMessage(user1: string, user2: string) {
       try {
         logger.info('----- CHAT.SERVICE STARTED -----');
-        const user = await this.chatModel.findOne({
+        const chats = await this.chatModel.find({
           $or: [
-           {sender: new mongoose.Types.ObjectId(userData.sender)},
-           {sender: new mongoose.Types.ObjectId(userData.sender)},
-          ],
+           {user1: new mongoose.Types.ObjectId(user1), user2: new mongoose.Types.ObjectId(user2)},
+           {user1: new mongoose.Types.ObjectId(user2), user2: new mongoose.Types.ObjectId(user1)},
+          ]
         });
-        if (!user) {
-          logger.info('----- CHAT.SERVICE USER NOT FOUND -----');
-          throw new HttpException(
-            'Cet utilisateur n\'existe pas',
-            HttpStatus.CONFLICT,
-          );
-        }
-        const newMsg = new this.chatModel(userData);
-        if(userFiles != null && userFiles != undefined && userFiles != '') {
-          logger.info('----- CHAT.SERVICE USER INSTANCE OF FILE -----');
-          //newMsg.img = userFiles;
-        }
-  
-        await newMsg.save();
+
         logger.info('----- CHAT.SERVICE USER MSG SAVED SUCCESSFULLY -----');
-        return newMsg.sender;
+        return chats;
       } catch (error) {
         throw new HttpException(error.message, error.status);
       }
