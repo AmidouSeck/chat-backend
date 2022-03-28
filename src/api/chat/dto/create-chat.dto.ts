@@ -15,7 +15,6 @@ export class CreateChatDto {
 
   img: Express.Multer.File[];
 
-  @IsNotEmpty()
   messageContent: string;
 
   //@IsNotEmpty()

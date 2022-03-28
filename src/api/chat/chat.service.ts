@@ -36,8 +36,8 @@ export class ChatService {
         }
         const newMsg = new this.chatModel(userData);
         if(userFiles != null && userFiles != undefined && userFiles != '') {
-          logger.info('----- CHAT.SERVICE USER INSTANCE OF FILE -----');
-          newMsg.messageContent = userFiles;
+          console.log('----- CHAT.SERVICE USER INSTANCE OF FILE -----', userFiles);
+          newMsg.messageContent = "/Users/amidouseck/Desktop/Dev_mobile/"+userFiles;
         } else {
           newMsg.messageContent = userData.messageContent;
         }
