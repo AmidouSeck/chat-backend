@@ -14,16 +14,17 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
-  @Get()
+  @Get('all/:userId')
   async findAll(
     @Res() res,
+    @Param('userId') userId: string,
   ) {
     //return this.usersService.findAll();
     try {
       logger.info('------INIT GETUSERS-----');
       var allUsers = [];
       var tab = [];
-      const users = await this.usersService.findAll();
+      const users = await this.usersService.findAll(userId);
        allUsers = users;
       for (let i = 0; i < allUsers.length; i++) {
         let userObject = {
